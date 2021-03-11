@@ -17,6 +17,13 @@ namespace ChatApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR();
+            services.AddCors(options => options.AddPolicy("AllowAll", builder =>
+            {
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
