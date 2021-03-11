@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2/viewModel.dart';
+import 'package:flutter2/viewModel/viewModel.dart';
 
 class ChatViewWidget extends StatelessWidget {
   final _vieWModel = ViewModel();
@@ -29,7 +29,10 @@ class ChatViewWidget extends StatelessWidget {
         return Text("Connecting");
         break;
       case ConnectionStatus.NotConnected:
-        return Icon(Icons.no_cell);
+        return IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: _vieWModel.connect,
+        );
       case ConnectionStatus.Connected:
         return Icon(Icons.connect_without_contact_outlined);
     }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'viewModel/chatViewWidget.dart';
+import 'chatViewWidget.dart';
 
 main(List<String> args) => runApp(ChatApp());
 

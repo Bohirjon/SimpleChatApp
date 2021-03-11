@@ -6,8 +6,8 @@ class ViewModel {
   HubConnection _hubConnection;
   ViewModel() {
     _hubConnection = HubConnectionBuilder()
-        .withUrl("http://localhost:5000/chatting",
-            HttpConnectionOptions(logging: (level, message) => print(message)))
+        .withUrl("http://192.168.1.37:5001/chatting",
+            HttpConnectionOptions(logging: newMethod))
         .build();
     _hubConnection.onclose(
         (exception) => statusSubject.add(ConnectionStatus.NotConnected));
@@ -17,6 +17,11 @@ class ViewModel {
         (exception) => statusSubject.add(ConnectionStatus.Connecting));
     _hubConnection.on("ReceiveMessage", _onMessageReceive);
     _onMessageReceive("Yahshi yahshi rahmat");
+  }
+
+  void newMethod(level, message) {
+    var log = level.toString() + "" + message;
+    print(log);
   }
 
   void _onMessageReceive(message) {
@@ -37,7 +42,11 @@ class ViewModel {
   final messagesSubject = BehaviorSubject<List<String>>.seeded(List.empty());
 
   connect() async {
-    await _hubConnection.start();
+    try {
+      await _hubConnection.start();
+    } catch (error) {
+      print(error);
+    }
   }
 
   disconnect() async {
