@@ -6,8 +6,8 @@ class ViewModel {
   HubConnection _hubConnection;
   ViewModel() {
     _hubConnection = HubConnectionBuilder()
-        .withUrl("http://192.168.1.37:5001/chatting",
-            HttpConnectionOptions(logging: newMethod))
+        .withUrl("http://192.168.1.43:5001/chatting", HttpConnectionOptions())
+        .withAutomaticReconnect()
         .build();
     _hubConnection.onclose(
         (exception) => statusSubject.add(ConnectionStatus.NotConnected));
@@ -16,30 +16,23 @@ class ViewModel {
     _hubConnection.onreconnecting(
         (exception) => statusSubject.add(ConnectionStatus.Connecting));
     _hubConnection.on("ReceiveMessage", _onMessageReceive);
-    _onMessageReceive("Yahshi yahshi rahmat");
   }
 
-  void newMethod(level, message) {
-    var log = level.toString() + "" + message;
-    print(log);
+  final list = <String>[];
+  void _onMessageReceive(arguments) {
+    try {
+      var listOfArgs = arguments as List;
+      var message = listOfArgs.first;
+      list.add(message);
+    } catch (e) {
+      print(e);
+    }
+    messagesSubject.sink.add(list);
   }
-
-  void _onMessageReceive(message) {
-    _messagesStore.add(message);
-    messagesSubject.add(_messagesStore);
-  }
-
-  final List<String> _messagesStore = [
-    "Salom",
-    "Salom siz yahsimi",
-    "Ha uzingiz qando ",
-    "Qayrdasiz ?",
-    "Man uyda sizchi?"
-  ];
 
   final messageSubject = BehaviorSubject<String>();
   final statusSubject = BehaviorSubject.seeded(ConnectionStatus.NotConnected);
-  final messagesSubject = BehaviorSubject<List<String>>.seeded(List.empty());
+  final messagesSubject = PublishSubject<List<String>>();
 
   connect() async {
     try {
@@ -53,9 +46,15 @@ class ViewModel {
     await _hubConnection.stop();
   }
 
-  sendMessage() {
-    _hubConnection
-        .invoke("SendMessage", args: [messageSubject.valueWrapper.value]);
+  sendMessage() async {
+    if (messageSubject.valueWrapper.value != null) {
+      _hubConnection
+          .invoke("SendMessage", args: [messageSubject.valueWrapper.value]);
+      messageSubject.add("");
+      print("sent");
+    } else {
+      print("it was null");
+    }
   }
 
   void dispose() {
