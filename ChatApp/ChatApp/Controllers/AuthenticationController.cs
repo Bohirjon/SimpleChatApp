@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace ChatApp.Controllers
 {
-    public class AuthenticationCoontroller
+    [ApiController]
+    public class AuthenticationController : Controller
     {
         
     }

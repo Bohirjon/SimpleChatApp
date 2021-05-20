@@ -1,4 +1,8 @@
-$HEADER$namespace $NAMESPACE$
+namespace ChatApp.Domain.DataTransferObjects
 {
-  public class $CLASS$ {$END$}
+    public record UserSignInDto
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
 }

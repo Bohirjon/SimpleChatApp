@@ -1,12 +1,24 @@
 import 'dart:core';
+import 'package:flutter2/models/message.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:signalr_core/signalr_core.dart';
+
+const List<int> retryPolicy = [
+  2000,
+  2000,
+  2000,
+];
 
 class ViewModel {
   HubConnection _hubConnection;
   ViewModel() {
     _hubConnection = HubConnectionBuilder()
-        .withUrl("http://192.168.1.43:5001/chatting", HttpConnectionOptions())
+        .withUrl(
+          "http://192.168.1.71:5001/chatting",
+          HttpConnectionOptions(
+            logging: (level, message) => print(message),
+          ),
+        )
         .withAutomaticReconnect()
         .build();
     _hubConnection.onclose(
@@ -18,7 +30,7 @@ class ViewModel {
     _hubConnection.on("ReceiveMessage", _onMessageReceive);
   }
 
-  final list = <String>[];
+  final list = <Message>[];
   void _onMessageReceive(arguments) {
     try {
       var listOfArgs = arguments as List;
@@ -32,11 +44,12 @@ class ViewModel {
 
   final messageSubject = BehaviorSubject<String>();
   final statusSubject = BehaviorSubject.seeded(ConnectionStatus.NotConnected);
-  final messagesSubject = PublishSubject<List<String>>();
+  final messagesSubject = PublishSubject<List<Message>>();
 
   connect() async {
     try {
       await _hubConnection.start();
+      statusSubject.sink.add(ConnectionStatus.Connected);
     } catch (error) {
       print(error);
     }
@@ -48,6 +61,9 @@ class ViewModel {
 
   sendMessage() async {
     if (messageSubject.valueWrapper.value != null) {
+      var message = Message();
+      message.senderName = "Bohirjon Akhmedov";
+      message.message = messageSubject.valueWrapper.value;
       _hubConnection
           .invoke("SendMessage", args: [messageSubject.valueWrapper.value]);
       messageSubject.add("");

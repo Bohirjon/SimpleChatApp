@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PbZGk7Wquu0sctV9bkF3nDkiiLMSbPboBlQUMr7hOAmSXAJif7QDJWdkYkukbimQlv1qPLXqLPKZVCY3B/Prpg==",
+  "dgSpecHash": "MWtJscP0yn+CfhXqJQQ/xkTpLH5+acQ2EXwHGi65NIJYRcUawZ+CxMc1fUGoJJ8G96TL4p9EQsmeWTm2A+TuVw==",
   "success": true,
-  "projectFilePath": "/Users/bohirjonakhmedov/repos/ChatApp/ChatApp/ChatApp.csproj",
+  "projectFilePath": "/Users/bohirjonakhmedov/repos/SimpleChatApp/ChatApp/ChatApp/ChatApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

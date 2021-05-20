@@ -1,4 +1,10 @@
-$HEADER$namespace $NAMESPACE$
+namespace ChatApp.Domain.DataTransferObjects
 {
-  public class $CLASS$ {$END$}
+    public record UserSignInResultDto
+    {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+        public string Token { get; set; }
+        
+    }
 }

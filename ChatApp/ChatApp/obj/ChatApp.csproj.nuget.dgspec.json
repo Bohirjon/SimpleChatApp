@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/bohirjonakhmedov/repos/ChatApp/ChatApp/ChatApp.csproj": {}
+    "/Users/bohirjonakhmedov/repos/SimpleChatApp/ChatApp/ChatApp/ChatApp.csproj": {}
   },
   "projects": {
-    "/Users/bohirjonakhmedov/repos/ChatApp/ChatApp/ChatApp.csproj": {
+    "/Users/bohirjonakhmedov/repos/SimpleChatApp/ChatApp/ChatApp/ChatApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bohirjonakhmedov/repos/ChatApp/ChatApp/ChatApp.csproj",
+        "projectUniqueName": "/Users/bohirjonakhmedov/repos/SimpleChatApp/ChatApp/ChatApp/ChatApp.csproj",
         "projectName": "ChatApp",
-        "projectPath": "/Users/bohirjonakhmedov/repos/ChatApp/ChatApp/ChatApp.csproj",
+        "projectPath": "/Users/bohirjonakhmedov/repos/SimpleChatApp/ChatApp/ChatApp/ChatApp.csproj",
         "packagesPath": "/Users/bohirjonakhmedov/.nuget/packages/",
-        "outputPath": "/Users/bohirjonakhmedov/repos/ChatApp/ChatApp/obj/",
+        "outputPath": "/Users/bohirjonakhmedov/repos/SimpleChatApp/ChatApp/ChatApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bohirjonakhmedov/.nuget/NuGet/NuGet.Config"
